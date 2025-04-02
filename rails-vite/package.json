@@ -1,0 +1,19 @@
+{
+  "name": "rails-vite",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "tms-nguyenvu <vu.nguyen1@tomosia.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "sass": "^1.86.1",
+    "vite": "^5.4.16",
+    "vite-plugin-full-reload": "^1.2.0",
+    "vite-plugin-ruby": "^5.1.1",
+    "vite-plugin-stimulus-hmr": "^3.0.0"
+  },
+  "dependencies": {
+    "@hotwired/stimulus": "^3.2.2",
+    "@hotwired/turbo-rails": "^8.0.13"
+  }
+}
