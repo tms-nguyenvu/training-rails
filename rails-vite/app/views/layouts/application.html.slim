@@ -8,13 +8,13 @@ html
     = csrf_meta_tags
     = csp_meta_tag
     = yield :head
-    link[rel="manifest" href="/manifest.json"]
+    / link[rel="manifest" href="/manifest.json"]
     link[rel="icon" href="/icon.png" type="image/png"]
     link[rel="icon" href="/icon.svg" type="image/svg+xml"]
     link[rel="apple-touch-icon" href="/icon.png"]
     = vite_client_tag
     = vite_javascript_tag 'application'
-    = vite_stylesheet_tag 'application.scss'
+    = vite_stylesheet_tag 'application.scss', data: { "turbo-track": "reload" } 
     / If using a TypeScript entrypoint file:
         vite_typescript_tag 'application'
 
