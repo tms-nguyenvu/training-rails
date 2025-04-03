@@ -1,0 +1,26 @@
+section.container.mx-auto.my-20.max-w-md.bg-white.shadow-lg.rounded-lg.p-6
+  h2.text-2xl.font-bold.text-center.text-gray-800.mb-6
+    | Log in
+  = form_for(resource, as: resource_name, url: session_path(resource_name), class: "space-y-4") do |f|
+    - if flash[:alert]
+      p.alert.text-center.text-red-400 = flash[:alert]
+
+
+    .field
+      = f.label :email, class: "block text-sm font-medium text-gray-700"
+      = f.email_field :email, autofocus: true, autocomplete: "email", class: "mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 shadow-sm"
+    .field
+      = f.label :password, class: "block text-sm font-medium text-gray-700"
+      = f.password_field :password, autocomplete: "current-password", class: "mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 shadow-sm"
+    
+    - if devise_mapping.rememberable?
+      .field.flex.items-center.mt-2
+        = f.check_box :remember_me, class: "h-4 w-4 text-indigo-600 border-gray-300 rounded"
+        = f.label :remember_me, class: "ml-2 text-sm text-gray-600"
+
+    .actions.mt-6
+      = f.submit "Log in", class: "w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-200"
+
+  .flex.justify-between.mt-4
+    = render "devise/shared/links"
+  
