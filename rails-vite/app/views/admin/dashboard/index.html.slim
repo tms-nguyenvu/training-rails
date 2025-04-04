@@ -1,4 +1,35 @@
-div[style = 'height: 200vh']
-  h1[class='text-2xl text-blue-400']
-    | Welcome Admin Dashboard
-  
+section.container.h-screen.mx-auto.my-20.max-w-7xl.bg-white
+  button.focus:outline-none.text-white.dark:bg-green-500.hover:bg-green-600.focus:ring-4.focus:ring-green-300.font-medium.rounded-lg.text-sm.px-5.py-2.5.me-2.mb-6.dark:bg-green-600.dark:hover:bg-green-700.dark:focus:ring-green-800
+    = link_to '' do
+      i.fas.fa-plus.mr-2
+      | Add post 
+
+  .relative.overflow-x-auto
+    table.w-full.text-left.rtl:text-right.text-gray-500.dark:text-gray-400.shadow-lg.rounded-lg
+      thead.text-sm.text-gray-700.uppercase.bg-gray-50.dark:bg-gray-700.dark:text-gray-400.rounded-t-lg
+        tr
+          th.px-6.py-3.bg-gray-100.text-gray-600.border-b.dark:bg-gray-800.dark:text-gray-200 ID
+          th.px-6.py-3.bg-gray-100.text-gray-600.border-b.dark:bg-gray-800.dark:text-gray-200 Title
+          th.px-6.py-3.bg-gray-100.text-gray-600.border-b.dark:bg-gray-800.dark:text-gray-200 Status
+          th.px-6.py-3.bg-gray-100.text-gray-600.border-b.dark:bg-gray-800.dark:text-gray-200 Category
+          th.px-6.py-3.bg-gray-100.text-gray-600.border-b.dark:bg-gray-800.dark:text-gray-200 Author
+          th.px-6.py-3.bg-gray-100.text-gray-600.border-b.dark:bg-gray-800.dark:text-gray-200 Actions
+      tbody
+        - @posts.each do |post|
+          tr.bg-white.border-b.hover:bg-gray-50.dark:bg-gray-800.dark:border-gray-700
+            td.px-6.py-4= post.id
+            td.px-6.py-4= post.title
+            td.px-6.py-4
+              - if post.published
+                span.text-green-500.font-semibold Published
+              - else
+                span.text-red-500.font-semibold Unpublished
+            td.px-6.py-4= post.category.name
+            td.px-6.py-4= post.user.name
+            td.px-6.py-4.flex.items-center.space-x-2
+              = link_to '', class: "text-blue-600 hover:text-blue-800 mr-2" do
+                i.fas.fa-eye
+              = link_to '', class: "text-yellow-600 hover:text-yellow-800 mr-2" do
+                i.fas.fa-edit
+              = link_to '', data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete this post?" }, class: "text-red-600 hover:text-red-800" do
+                i.fas.fa-trash

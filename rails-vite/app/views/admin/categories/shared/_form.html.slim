@@ -1,0 +1,25 @@
+= render "shared/flash_messages"
+
+= form_with(model: category, url: url, data: { turbo: false } , method: method) do |f|
+  h2.text-2xl.font-bold.text-center.text-gray-800.mb-6
+        = category.new_record? ? "Create Category" : "Update Category"
+  .field
+    = f.label :title, class: "block text-sm font-medium text-gray-700"
+    = f.text_field :title, class: "mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 shadow-sm"
+    - if category.errors[:title].any?
+      .text-red-500.text-sm.mt-2
+        = category.errors[:title].first
+
+  .field.mt-4
+    = f.label :content, class: "block text-sm font-medium text-gray-700"
+    = f.text_area :content, class: "mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 shadow-sm"
+    - if category.errors[:content].any?
+      .text-red-500.text-sm.mt-2
+        = category.errors[:content].fist
+
+  .action.mt-6
+    = f.submit category.new_record? ? "Create Category" : "Update Category", class: "w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-200"
+
+  .flex.gap-2.items-center.mt-4.text-indigo-600.hover:text-indigo-800.transition.font-medium
+    i.fa-solid.fa-arrow-left
+    = link_to "Back to Categories", admin_categories_path, class: "block"

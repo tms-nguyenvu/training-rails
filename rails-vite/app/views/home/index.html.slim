@@ -1,7 +1,29 @@
+section.bg-gradient-to-r.from-indigo-500.via-purple-600.to-pink-500.py-20
+  .container.mx-auto.text-center.text-white
+    h1.text-5xl.font-bold.mb-4 Welcome to My Blog
+    p.text-xl.mb-8 A place to share knowledge, stories, and insights.
+    = link_to "#posts", class: "bg-white text-indigo-600 hover:bg-indigo-200 font-semibold py-2 px-6 rounded-full transition duration-300" do
+      | Explore Posts
 
-div[style = 'height: 200vh']
-  h1[class='text-2xl text-blue-400']
-    | Test Stimulus với
-  div[data-controller="hello"]
-    button[data-action="click->hello#connect"]
-      | Click Me
+section#posts.container.mx-auto.py-20
+  h2.text-3xl.font-semibold.text-center.text-gray-800.mb-8 Latest Blog Posts
+  .grid.grid-cols-1.md:grid-cols-2.lg:grid-cols-3.gap-8
+    - @posts.each do |post|
+      .border.rounded-lg.overflow-hidden.shadow-lg
+        - if post.image_url.present?
+          = image_tag post.image_url, alt: post.title, class: "w-full h-64 object-cover"
+        - else
+          .w-full.h-64.bg-gray-200.flex.items-center.justify-center
+            p.text-gray-500.text-xl No Image Available
+        .p-6
+          h3.text-2xl.font-bold.text-gray-800.mb-4
+            = link_to post.title, post_path(post), class: "text-indigo-600 hover:text-indigo-800"
+          p.text-gray-600.mb-4 = truncate(post.content, length: 150)
+          
+
+section.bg-gray-100.py-20
+  .container.mx-auto.text-center
+    h2.text-3xl.font-semibold.text-gray-800.mb-6 Join the Community
+    p.text-xl.text-gray-600.mb-6 Sign up for our newsletter and get the latest posts delivered to your inbox!
+    = link_to "#subscribe", class: "bg-indigo-600 text-white hover:bg-indigo-700 py-3 px-6 rounded-full transition duration-300" do
+      | Subscribe Now
