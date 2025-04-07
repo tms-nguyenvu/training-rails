@@ -9,9 +9,17 @@ Rails.application.routes.draw do
     resources :users
     resources :posts
     resources :categories
-    get "dashboard", to: "dashboard#index"
+
+    namespace :ai do
+      get 'gemini', to: 'gemini#index'
+      post 'gemini/generate', to: 'gemini#generate'
+    end
   end
 
+  # routes.rb
 
   root "home#index"
+
+  match '*unmatched', to: 'errors#not_found', via: :all
+
 end

@@ -13,4 +13,7 @@ class Post < ApplicationRecord
 
   scope :published, -> { where(published: true) }
   scope :recent, -> { order(created_at: :desc) }
+  scope :search, ->(query) {
+    where("title LIKE ?", "%#{query}%")
+  }
 end

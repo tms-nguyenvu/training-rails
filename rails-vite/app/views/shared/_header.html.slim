@@ -23,6 +23,9 @@ header
                     = link_to 'Manager Post', admin_posts_path, class: "block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600"
                   li
                     = link_to 'Manager Category', admin_categories_path, class: "block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600"
+                  li
+                    = link_to 'Ai Generate Post', admin_categories_path, class: "block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600"
+
 
               / User Menu - Always show for all signed in users
               ul.py-2.text-sm.text-gray-700.dark:text-gray-200
@@ -34,6 +37,9 @@ header
         - else
           = link_to 'Sign In', new_user_session_path, class: 'text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800'
 
+      = form_with url: posts_path, method: :get, class: "hidden lg:flex lg:items-center lg:space-x-4" do |f|
+        = f.search_field :q, placeholder: "Search posts...", class: "block w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 shadow-sm transition placeholder-gray-500 dark:bg-gray-800 dark:text-white dark:border-gray-600"
+        = f.submit "Search", class: "bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-200"
       / Navigation Links
       #mobile-menu-2.hidden.justify-between.items-center.w-full.lg:flex.lg:w-auto.lg:order-1
         ul.flex.flex-col.mt-4.font-medium.lg:flex-row.lg:space-x-8.lg:mt-0
