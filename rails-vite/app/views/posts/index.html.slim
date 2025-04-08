@@ -22,6 +22,9 @@ section.container.h-screen.mx-auto.my-20.max-w-7xl.bg-white
 
           p.text-gray-600.mt-2
             = truncate(post.content, length: 100)
+    .flex.justify-center.mt-6.flex-col.items-center.gap-2
+      == pagy_nav(@pagy)
+
   - else
     p.text-gray-500.text-center.mt-4
       | No posts available.

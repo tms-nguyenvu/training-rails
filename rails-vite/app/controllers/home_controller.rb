@@ -3,6 +3,6 @@ class HomeController < ApplicationController
   before_action :authenticate_user!, except: [:index]
 
   def index
-    @posts = Post.published
+    @pagy, @posts = pagy(Post.published.recent, limit: 3)
   end
 end

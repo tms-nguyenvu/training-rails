@@ -3,7 +3,7 @@ class Admin::PostsController < Admin::BaseController
   before_action :set_post_params, only: [:show, :edit, :update, :destroy]
 
   def index
-    @posts = Post.all
+    @pagy, @posts = pagy(Post.all)
   end
 
   def show

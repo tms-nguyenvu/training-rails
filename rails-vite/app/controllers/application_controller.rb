@@ -1,4 +1,9 @@
+
 class ApplicationController < ActionController::Base
+
+  # binding.pry
+  # Include it in the controllers (e.g. application_controller.rb)
+  include Pagy::Backend
 
   rescue_from ActiveRecord::RecordNotFound, with: :handle_not_found
   rescue_from ActionController::RoutingError, with: :handle_not_found
