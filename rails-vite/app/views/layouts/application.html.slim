@@ -5,6 +5,7 @@ html
       = content_for(:title) || "Rails Vite"
     meta[name="viewport" content="width=device-width,initial-scale=1"]
     meta[name="apple-mobile-web-app-capable" content="yes"]
+    / meta[name="turbo-prefetch" content="false"]
     = csrf_meta_tags
     = csp_meta_tag
     = yield :head
@@ -15,7 +16,7 @@ html
     link[rel="apple-touch-icon" href="/icon.png"]
     = vite_client_tag
     = vite_javascript_tag 'application'
-    = vite_stylesheet_tag 'application.scss', data: { "turbo-track": "reload" } 
+    = vite_stylesheet_tag 'application.scss', data: { "turbo-track": "reload" }
     / If using a TypeScript entrypoint file:
         vite_typescript_tag 'application'
 
@@ -34,11 +35,10 @@ html
     /   / = link_to 'Profile', edit_user_registration_path
     /   = button_to 'Log Out', destroy_user_session_path, method: :delete
 
-    / - else 
-      / = link_to 'Sign In', new_user_session_path 
+    / - else
+      / = link_to 'Sign In', new_user_session_path
       / = link_to 'Sign Up', new_user_registration_path
 
     main
       = yield
     footer = render 'shared/footer'
-
