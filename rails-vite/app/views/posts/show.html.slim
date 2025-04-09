@@ -17,6 +17,14 @@ section.container.mx-auto.max-w-7xl.my-20.max-w-4xl.bg-white
         | Category:
         = @post.category.name
 
-    - @comments.each do |comment|
-      = render 'comments/shared/comment', post: @post, comment: comment
-    = render "comments/shared/form", post: @post
+    = turbo_stream_from "comments_for_post_#{@post.id}"
+
+    #comments
+      = render partial: "comments/shared/comment_with_actions",
+      collection: @comments,
+      as: :comment,
+      locals: { post: @post, current_user: current_user }
+
+
+    #comment_form
+      = render "comments/shared/form", post: @post

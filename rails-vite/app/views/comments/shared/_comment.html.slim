@@ -1,19 +1,11 @@
 .container.bg-white.shadow-md.rounded-lg.p-4.my-4[id="comment-#{comment.id}"]
-  - if comment.id == params[:editing_comment_id].to_i
-    = render "comments/shared/form", post: post, comment: comment
-  - else
-    .flex.justify-between.items-center.mb-2
-      strong.text-sm.text-gray-600
-        = comment.user.email
-      .text-xs.text-gray-400
-        | Posted:
-        = time_ago_in_words(comment.created_at)
-        | ago
+  .flex.justify-between.items-center.mb-2
+    strong.text-sm.text-gray-600
+      = comment.user.email
+    .text-xs.text-gray-400
+      | Posted:
+      = time_ago_in_words(comment.created_at)
+      | ago
 
-    .prose.prose-sm.text-gray-800.mb-3
-      = comment.content.to_s
-
-    - if current_user == comment.user
-      .text-right.flex.items-center.justify-end.space-x-2
-        = link_to "Edit", post_path(post, editing_comment_id: comment.id), class: "text-sm text-blue-500 hover:text-blue-700 transition"
-        = button_to "Delete", [post, comment], method: :delete, data: { controller: "confirm-delete", action: "confirm-delete#confirm" }, class: "text-sm text-red-500 hover:text-red-700 transition"
+  .prose.prose-sm.text-gray-800.mb-3
+    = comment.content.to_s
