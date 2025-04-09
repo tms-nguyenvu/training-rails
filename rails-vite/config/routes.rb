@@ -1,9 +1,13 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   devise_for :users, controllers: {
     registrations: 'auth/registrations',
     sessions: 'auth/sessions'
   }
-  resources :posts, only: [:index, :show]
+  resources :posts, only: [:index, :show] do
+    resources :comments, only: [:show, :create, :update, :destroy]
+  end
 
   namespace :admin do
     resources :users
@@ -18,8 +22,13 @@ Rails.application.routes.draw do
 
   # routes.rb
 
+  mount Sidekiq::Web => '/sidekiq'
+
+
   root "home#index"
 
   match '*unmatched', to: 'errors#not_found', via: :all
+
+
 
 end

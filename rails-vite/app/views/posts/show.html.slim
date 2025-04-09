@@ -1,17 +1,22 @@
 section.container.mx-auto.max-w-7xl.my-20.max-w-4xl.bg-white
-  h2.text-2xl.font-bold.text-gray-800.mb-6
-    | Post Details
+  .relative
+    h2.text-2xl.font-bold.text-gray-800.mb-6
+      | Post Details
 
-  - if @post.image_url.present?
-    img.w-full.object-cover.rounded-md.mb-4 src=@post.image_url alt=@post.title
+    - if @post.image_url.present?
+      img.size-60.object-cover.rounded-md.mb-4 src=@post.image_url alt=@post.title
 
-  h3.text-xl.font-semibold.text-gray-900.mb-2
-    = @post.title
+    h3.text-xl.font-semibold.text-gray-900.mb-2
+      = @post.title
 
-  p.text-gray-600.mb-4
-    = @post.content
+    p.text-gray-600.mb-4
+      = @post.content
 
-  - if @post.category.present?
-    p.text-sm.text-gray-500.mb-2
-      | Category:
-      = @post.category.name
+    - if @post.category.present?
+      p.text-sm.text-gray-500.mb-4
+        | Category:
+        = @post.category.name
+
+    - @comments.each do |comment|
+      = render 'comments/shared/comment', post: @post, comment: comment
+    = render "comments/shared/form", post: @post

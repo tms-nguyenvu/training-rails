@@ -40,7 +40,9 @@ class ApplicationController < ActionController::Base
       end
     end
 
+
     def handle_not_found(exception)
+      # binding.pry
       respond_to do |format|
         format.html { render 'errors/404', status: :not_found }
         format.json { render json: { error: 'Resource not found' }, status: :not_found }
