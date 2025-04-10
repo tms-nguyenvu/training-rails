@@ -27,4 +27,5 @@ section.container.mx-auto.max-w-7xl.my-20.max-w-4xl.bg-white
 
 
     #comment_form
-      = render "comments/shared/form", post: @post
+      = turbo_frame_tag "comment_form" do
+        = render "comments/shared/form", post: @post

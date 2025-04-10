@@ -9,6 +9,6 @@ class User < ApplicationRecord
 
   # Override for use with Active Job
   def send_devise_notification(notification, *args)
-    devise_mailer.send(notification, self, *args).deliver_later
+    devise_mailer.send(notification, self, *args).deliver_later(wait: 30.minutes)
   end
 end
