@@ -77,4 +77,16 @@ Rails.application.configure do
   # config.generators.apply_rubocop_autocorrect_after_generate!
   #
   config.active_job.queue_adapter = :sidekiq
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: '127.0.0.1',
+    port: 1025
+  }
+
+  config.action_mailer.default_url_options = {
+    host: '127.0.0.1',
+    port: 3000
+  }
+
 end

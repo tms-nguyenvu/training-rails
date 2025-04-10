@@ -5,7 +5,8 @@ section.container.mx-auto.h-screen.my-20.max-w-md.bg-white
     = form_for(resource, as: resource_name, url: session_path(resource_name), class: "space-y-4") do |f|
       - if flash[:alert]
         p.alert.text-center.text-red-400 = flash[:alert]
-
+      - if flash[:notice]
+        p.notice.text-center.text-green-400 = flash[:notice]
 
       .field
         = f.label :email, class: "block text-sm font-medium text-gray-700"
