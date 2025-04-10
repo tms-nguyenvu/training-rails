@@ -4,8 +4,8 @@
   h2.text-2xl.font-bold.text-center.text-gray-800.mb-6
     = post.new_record? ? "Create Post" : "Update Post"
 
-  .flex.justify-between.gap-4     
-    .field.w-full 
+  .flex.justify-between.gap-4
+    .field.w-full
         = f.label :title, class: "block text-sm font-medium text-gray-700"
         = f.text_field :title, class: "mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 shadow-sm"
         - if post.errors[:title].any?
@@ -18,8 +18,8 @@
         - if post.errors[:content].any?
         .text-red-500.text-sm.mt-2
             = post.errors[:content].first
-    
-  .flex.justify-between.gap-4 
+
+  .flex.justify-between.gap-4
     .field.mt-4.w-full
         = f.label :published, "Published", class: "block text-sm font-medium text-gray-700"
 
@@ -36,7 +36,7 @@
             .text-red-500.text-sm.mt-2
                 = post.errors[:published].first
 
-    
+
   .field.mt-4.w-full
     .field.w-full
         = f.label :category_id, "Category", class: "block text-sm font-medium text-gray-700"
@@ -46,11 +46,11 @@
             = post.errors[:category_id].first
 
     .field.w-full
-        = f.label :image_url, class: "block text-sm font-medium text-gray-700"
-        = f.text_field :image_url, class: "mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 shadow-sm"
-        - if post.errors[:image_url].any?
+        = f.label :images, class: "block text-sm font-medium text-gray-700"
+        = f.file_field :images, multiple: true, class: "mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 shadow-sm"
+        - if post.errors[:images].any?
         .text-red-500.text-sm.mt-2
-            = post.errors[:image_url].first
+            = post.errors[:images].first
 
   .action.mt-6
     = f.submit post.new_record? ? "Create Post" : "Update Post", class: "w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-200"

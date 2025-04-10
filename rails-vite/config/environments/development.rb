@@ -89,4 +89,11 @@ Rails.application.configure do
     port: 3000
   }
 
+  config.active_storage.variant_processor = :mini_magick;
+
+    # Store files locally.
+  config.active_storage.service = :local
+
+
+
 end

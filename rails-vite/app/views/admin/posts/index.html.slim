@@ -25,11 +25,12 @@ section.container.h-screen.mx-auto.my-20.max-w-7xl.bg-white
               td.px-6.py-4 = post.published
               td.px-6.py-4 = post.category.name
               td.px-6.py-4
-                - if post.image_url.present?
-                    - if post.image_url.start_with?("http")
-                      = image_tag post.image_url, alt: post.title, class: "w-16 h-16 object-cover rounded-lg"
-                    - else
-                      = image_tag url_for(post.image_url), alt: post.title, class: "w-16 h-16 object-cover rounded-lg"
+                - if post.images.attached?
+                  - post.images.each do |image|
+                    = image_tag rails_blob_url(image, only_path: true), class: "w-16 h-16 object-cover rounded-lg"
+                - else
+                  .size-16.bg-gray-200.rounded-lg
+                    | No Image
 
 
               td.px-6.py-4 = post.created_at.strftime("%Y-%m-%d %H:%M")

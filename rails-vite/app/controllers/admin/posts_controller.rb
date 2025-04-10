@@ -24,6 +24,9 @@ class Admin::PostsController < Admin::BaseController
     if @post.save
       redirect_to admin_posts_path
     else
+      # binding.pry
+      # puts @post.errors.full_messages
+
       flash.now[:alert] = "Failed to create post."
       render :new
     end
@@ -53,6 +56,6 @@ class Admin::PostsController < Admin::BaseController
       @post = Post.find(params[:id])
     end
     def post_params
-      params.require(:post).permit(:title, :content, :category_id, :published, :image_url)
+      params.require(:post).permit(:title, :content, :category_id, :published, images: [])
     end
 end

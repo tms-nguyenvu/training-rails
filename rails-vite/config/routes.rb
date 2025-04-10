@@ -27,8 +27,9 @@ Rails.application.routes.draw do
 
   root "home#index"
 
-  match '*unmatched', to: 'errors#not_found', via: :all
 
-
-
+  # Instead of matching everything, exclude Active Storage paths
+  match '*unmatched', to: 'errors#not_found', via: :all, constraints: lambda { |req|
+    req.path.exclude?('/rails/active_storage') && req.path.exclude?('/storage/')
+  }
 end
