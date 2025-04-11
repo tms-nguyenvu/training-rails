@@ -78,22 +78,42 @@ Rails.application.configure do
   #
   config.active_job.queue_adapter = :sidekiq
 
+
+  # Use MAILER CATCHER
+  # config.action_mailer.delivery_method = :smtp
+  # config.action_mailer.smtp_settings = {
+  #   address: '127.0.0.1',
+  #   port: 1025
+  # }
+
+  # config.action_mailer.default_url_options = {
+  #   host: '127.0.0.1',
+  #   port: 3000
+  # }
+
+
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
   config.action_mailer.delivery_method = :smtp
+
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default_options = { from: 'vu.nguyen1.tms@gmail.com' }
+
   config.action_mailer.smtp_settings = {
-    address: '127.0.0.1',
-    port: 1025
+    address:              'smtp.gmail.com',
+    port:                 587,
+    domain:               'gmail.com',
+    user_name:            'vu.nguyen1.tms@gmail.com',
+    password:             'ulke jwpo iyoc lzrb',
+    authentication:       'plain',
+    enable_starttls_auto: true
   }
 
-  config.action_mailer.default_url_options = {
-    host: '127.0.0.1',
-    port: 3000
-  }
 
+  # Store files locally.
   config.active_storage.variant_processor = :mini_magick;
-
-    # Store files locally.
   config.active_storage.service = :local
-
 
 
 end
