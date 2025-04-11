@@ -1,6 +1,6 @@
 class Admin::PostsController < Admin::BaseController
 
-  before_action :set_post_params, only: [:show, :edit, :update, :destroy]
+  before_action :set_post_params, only: [:show, :edit, :update, :destroy, :report]
 
   def index
     @pagy, @posts = pagy(Post.all)
@@ -49,6 +49,10 @@ class Admin::PostsController < Admin::BaseController
       flash[:notice] = "Failed to delete post."
       redirect_to admin_posts_path
     end
+  end
+
+  def report
+    ReportMailer.with(post: @post, reporter: current_user).send_report.deliver_later(wait: 30.minutes)
   end
 
   private
