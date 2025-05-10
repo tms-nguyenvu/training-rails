@@ -1,0 +1,35 @@
+section.container.mx-auto.max-w-7xl.my-20.max-w-4xl.bg-white
+  .relative
+    h2.text-2xl.font-bold.text-gray-800.mb-6
+      | Post Details
+
+
+    h3.text-xl.font-semibold.text-gray-900.mb-6
+      = @post.title
+    - if @post.images.attached?
+      - @post.images.each do |image|
+        = image_tag rails_blob_url(image, only_path: true), class: "mx-auto w-auto h-auto object-cover rounded-lg"
+    - else
+      .size-40.bg-gray-200.rounded-lg
+      | No Image
+
+    p.my-4
+      = @post.content.html_safe
+
+    - if @post.category.present?
+      p.text-sm.text-gray-500.my-4
+        | Category:
+        = @post.category.name
+
+    = turbo_stream_from "comments_for_post_#{@post.id}"
+
+    #comments
+      = render partial: "comments/shared/comment_with_actions",
+      collection: @comments,
+      as: :comment,
+      locals: { post: @post, current_user: current_user }
+
+
+    #comment_form
+      = turbo_frame_tag "comment_form" do
+        = render "comments/shared/form", post: @post

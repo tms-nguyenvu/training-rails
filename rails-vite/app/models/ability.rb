@@ -1,0 +1,18 @@
+# frozen_string_literal: true
+
+class Ability
+  include CanCan::Ability
+
+  def initialize(user)
+    can :read, Post, public: true
+    can :read, Category, public: true
+    can :read, Comment, public: true
+    
+    if user.has_role? :admin
+      can :manage, :all
+    else
+      can :read, :all
+    end
+
+  end
+end

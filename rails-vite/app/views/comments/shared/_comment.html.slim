@@ -1,0 +1,11 @@
+.container.bg-white.shadow-md.rounded-lg.p-4.my-4[id="comment-#{comment.id}"]
+  .flex.justify-between.items-center.mb-2
+    strong.text-sm.text-gray-600
+      = comment.user.email
+    .text-xs.text-gray-400
+      | Posted:
+      = time_ago_in_words(comment.created_at)
+      | ago
+
+  .prose.prose-sm.text-gray-800.mb-3
+    = comment.content.to_s

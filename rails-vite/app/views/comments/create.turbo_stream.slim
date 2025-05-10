@@ -1,0 +1,6 @@
+= turbo_stream.append "comments" do
+  = render partial: "comments/shared/comment_with_actions",
+  locals: { post: @post, comment: @comment, current_user: current_user }
+
+= turbo_stream.update "comment_form" do
+  = render "comments/shared/form", post: @post

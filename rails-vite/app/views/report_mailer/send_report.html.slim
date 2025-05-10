@@ -1,0 +1,25 @@
+div class="p-6 bg-white rounded-lg shadow-md text-gray-800"
+  h2 class="text-xl font-bold mb-4 text-indigo-600"
+    | 📣 Post Report
+
+  p class="mb-2"
+    span class="font-medium text-gray-600" User:
+    span class="ml-1 font-semibold text-blue-700" = @reporter.email
+    span class="ml-2 text-sm text-red-500" Reported this post
+
+  p class="mb-2"
+    span class="font-medium text-gray-600" Post ID:
+    span class="ml-1 font-semibold text-gray-800" = @post.id
+
+  p class="mb-2"
+    span class="font-medium text-gray-600" Title:
+    span class="ml-1 font-semibold text-gray-900" = @post.title
+
+  p class="mb-2"
+    span class="font-medium text-gray-600" Content:
+    br
+    span class="ml-1 text-gray-700 whitespace-pre-wrap" = @post.content
+
+  p class="mt-4"
+    a href=post_url(@post) class="inline-block text-sm text-white bg-indigo-500 hover:bg-indigo-600 px-4 py-2 rounded-md transition"
+      | 🔗 View Post

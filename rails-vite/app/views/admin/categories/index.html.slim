@@ -1,0 +1,34 @@
+section.container.h-screen.mx-auto.my-20.max-w-7xl.bg-white
+  button.focus:outline-none.text-white.bg-green-500.hover:bg-green-600.focus:ring-4.focus:ring-green-300.font-medium.rounded-lg.text-sm.px-5.py-2.5.me-2.mb-6.bg-green-600.hover:bg-green-700.focus:ring-green-800
+    = link_to new_admin_category_path do
+      i.fas.fa-plus.mr-2
+      | Add category
+
+  .relative.overflow-x-auto
+    - if @categories.present?
+      table.w-full.text-left.rtl:text-right.shadow-lg.overflow-hidden.rounded-xl
+        thead.text-sm.uppercase.bg-gray-50.bg-gray-700.text-white
+          tr
+            th.px-6.py-3.bg-gray-100.border-b.bg-gray-800 | ID
+            th.px-6.py-3.bg-gray-100.border-b.bg-gray-800 | Name
+            th.px-6.py-3.bg-gray-100.border-b.bg-gray-800 | Posts Count
+            th.px-6.py-3.bg-gray-100.border-b.bg-gray-800 | Actions
+        tbody
+          - @categories.each do |category|
+            tr.bg-white.border.hover:bg-gray-50.bg-gray-800
+              td.px-6.py-4 = category.id
+              td.px-6.py-4 = category.name
+              td.px-6.py-4 = category.posts.count
+              td.px-6.py-4.flex.items-center.space-x-2
+          
+                = link_to edit_admin_category_path(category), class: "text-yellow-600 hover:text-yellow-800 mr-2" do
+                  i.fas.fa-edit
+                = button_to admin_category_path(category), method: :delete, data: { controller: "confirm-delete", action: "confirm-delete#confirm" }, class: "text-red-600 hover:text-red-800"
+                  i.fas.fa-trash
+
+    - else
+      .p-4.text-center
+        p.text-slate-800.text-lg.font-medium.text-gray-200 
+          i.fa-solid.fa-ban.mr-2
+          | Empty Category 
+        p.text-gray-600.mt-2 There are no categories available. Click the "Add category" button to create one.

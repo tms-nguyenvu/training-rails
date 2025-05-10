@@ -1,0 +1,31 @@
+section.container.h-screen.mx-auto.my-20.max-w-7xl.bg-white
+  h2.text-2xl.font-bold.text-center.text-gray-800.mb-6
+    | List of Posts
+
+  - if @posts.present?
+    .grid.grid-cols-1.md:grid-cols-2.lg:grid-cols-4.gap-6
+      - @posts.each do |post|
+        = link_to post_path(post), class: "border border-gray-300 rounded-lg p-4 shadow-md" do
+          - if post.images.attached?
+            - post.images.each do |image|
+              = image_tag rails_blob_url(image, only_path: true), class: "w-full h-40 object-cover rounded-lg"
+          - else
+            .size-40.bg-gray-200.rounded-lg
+              | No Image
+
+          h3.text-lg.font-semibold.text-gray-900.mb-2
+            = post.title
+
+          - if post.category.present?
+            p.text-sm.text-gray-500
+              | Category:
+              = post.category.name
+
+          p.text-gray-600.mt-2
+            = truncate(post.content, length: 100)
+    .flex.justify-center.mt-6.flex-col.items-center.gap-2
+      == pagy_nav(@pagy)
+
+  - else
+    p.text-gray-500.text-center.mt-4
+      | No posts available.

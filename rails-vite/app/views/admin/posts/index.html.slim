@@ -1,0 +1,53 @@
+section.container.h-screen.mx-auto.my-20.max-w-7xl.bg-white
+  button.focus:outline-none.text-white.bg-green-500.hover:bg-green-600.focus:ring-4.focus:ring-green-300.font-medium.rounded-lg.text-sm.px-5.py-2.5.me-2.mb-6.bg-green-600.hover:bg-green-700.focus:ring-green-800
+    = link_to new_admin_post_path do
+      i.fas.fa-plus.mr-2
+      | Add Post
+
+  .relative.overflow-x-auto
+    - if @posts.present?
+      table.w-full.text-left.rtl:text-right.shadow-lg.overflow-hidden.rounded-xl
+        thead.text-sm.uppercase.bg-gray-50.bg-gray-700.text-white
+          tr
+            th.px-6.py-3.bg-gray-100.border-b.bg-gray-800 | ID
+            th.px-6.py-3.bg-gray-100.border-b.bg-gray-800 | Title
+            th.px-6.py-3.bg-gray-100.border-b.bg-gray-800 | Published
+            th.px-6.py-3.bg-gray-100.border-b.bg-gray-800 | Category
+            th.px-6.py-3.bg-gray-100.border-b.bg-gray-800 | Image
+            th.px-6.py-3.bg-gray-100.border-b.bg-gray-800 | Created At
+            th.px-6.py-3.bg-gray-100.border-b.bg-gray-800 | Updated At
+            th.px-6.py-3.bg-gray-100.border-b.bg-gray-800 | Actions
+        tbody
+          - @posts.each do |post|
+            tr.bg-white.border.hover:bg-gray-50.bg-gray-800
+              td.px-6.py-4 = post.id
+              td.px-6.py-4 = post.title
+              td.px-6.py-4 = post.published
+              td.px-6.py-4 = post.category.name
+              td.px-6.py-4
+                - if post.images.attached?
+                  - post.images.each do |image|
+                    = image_tag rails_blob_url(image, only_path: true), class: "w-16 h-16 object-cover rounded-lg"
+                - else
+                  .size-16.bg-gray-200.rounded-lg
+                    | No Image
+
+
+              td.px-6.py-4 = post.created_at.strftime("%Y-%m-%d %H:%M")
+              td.px-6.py-4 = post.updated_at.strftime("%Y-%m-%d %H:%M")
+              td.px-6.py-4.flex.items-center.space-x-2.h-full
+                = link_to edit_admin_post_path(post), class: "text-yellow-600 hover:text-yellow-800 mr-2" do
+                  i.fas.fa-edit
+                = button_to admin_post_path(post), method: :delete, data: { controller: "confirm-delete", action: "confirm-delete#confirm" }, class: "text-red-600 hover:text-red-800"
+                  i.fas.fa-trash
+                = button_to report_admin_post_path(post), method: :post, data: { turbo: false }, class: "text-blue-600 hover:text-blue-800"
+                  i.fas.fa-flag
+      .flex.justify-center.mt-6.flex-col.items-center.gap-2
+      == pagy_nav(@pagy)
+
+    - else
+      .p-4.text-center
+        p.text-slate-800.text-lg.font-medium.text-gray-200
+          i.fa-solid.fa-ban.mr-2
+          | Empty Post
+        p.text-gray-600.mt-2 There are no post available. Click the "Add post" button to create one.

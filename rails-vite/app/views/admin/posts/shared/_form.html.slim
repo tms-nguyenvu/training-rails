@@ -1,0 +1,60 @@
+= render "shared/flash_messages"
+
+= form_with(model: post, url: url, data: { turbo: false }, method: method) do |f|
+  h2.text-2xl.font-bold.text-center.text-gray-800.mb-6
+    = post.new_record? ? "Create Post" : "Update Post"
+
+
+
+  .field.w-full
+        = f.label :title, class: "block text-sm font-medium text-gray-700"
+        = f.text_field :title, class: "mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 shadow-sm"
+        - if post.errors[:title].any?
+        .text-red-500.text-sm.mt-2
+            = post.errors[:title].first
+
+  .field.w-full
+        = f.label :content, class: "block text-sm font-medium text-gray-700"
+        = f.rich_text_area :content, class: "mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 shadow-sm"
+        - if post.errors[:content].any?
+        .text-red-500.text-sm.mt-2
+            = post.errors[:content].first
+  .flex.justify-between.gap-4
+    .field.mt-4.w-full
+        = f.label :published, "Published", class: "block text-sm font-medium text-gray-700"
+
+        .flex.items-center.space-x-4.mt-2.gap-2
+            .flex.items-center
+            = f.radio_button :published, true, id: "published_true", class: "focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+            = f.label :published_true, "Yes", class: "ml-2 text-sm font-medium text-gray-700"
+
+            .flex.items-center
+            = f.radio_button :published, false, id: "published_false", class: "focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+            = f.label :published_false, "No", class: "ml-2 text-sm font-medium text-gray-700"
+
+        - if post.errors[:published].any?
+            .text-red-500.text-sm.mt-2
+                = post.errors[:published].first
+
+
+  .field.mt-4.w-full
+    .field.w-full
+        = f.label :category_id, "Category", class: "block text-sm font-medium text-gray-700"
+        = f.collection_select :category_id, Category.all, :id, :name, { prompt: "Select a category" }, class: "mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 shadow-sm"
+        - if post.errors[:category_id].any?
+        .text-red-500.text-sm.mt-2
+            = post.errors[:category_id].first
+
+    .field.w-full
+        = f.label :images, class: "block text-sm font-medium text-gray-700"
+        = f.file_field :images, multiple: true, class: "mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500 shadow-sm"
+        - if post.errors[:images].any?
+        .text-red-500.text-sm.mt-2
+            = post.errors[:images].first
+
+  .action.mt-6
+    = f.submit post.new_record? ? "Create Post" : "Update Post", class: "w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-200"
+
+  .flex.gap-2.items-center.mt-4.text-indigo-600.hover:text-indigo-800.transition.font-medium
+    i.fa-solid.fa-arrow-left
+    = link_to "Back to Posts", admin_posts_path, class: "block"
